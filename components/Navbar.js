@@ -2,7 +2,7 @@ import React from "react";
 
 function Navbar() {
   return (
-    <nav className="bg-white w-[80vw] overflow-hidden fixed top-10 right-[10vw] rounded-full p-3 px-4 flex justify-between items-center">
+    <nav className="bg-white w-[85vw] overflow-hidden fixed top-10 right-[7vw] rounded-full p-3 px-4 flex justify-between items-center">
       <div>
         <svg
           className="h-5"
