@@ -16,7 +16,7 @@ function page() {
           </p>
           <div className="flex gap-2 py-6">
             <input className="p-3 text-sm rounded-lg focus:outline-green-[#254f1a]" type="text" placeholder="linktr.ee/your-url" />
-            <button className="bg-yellow-300">Claim your Linktree</button>
+            <button className="bg-[#e9c0e9] px-5 py-3 text-sm font-semibold rounded-full">Claim your Linktree</button>
           </div>
         </div>
         <div className="flex justify-center items-end">
