@@ -23,7 +23,6 @@ function page() {
           <Image src="/hero.png" alt="hero image" width={450} height={450} />
         </div>
       </section>
-      <section className="bg-[#a1144c] min-h-[100vh]"></section>
     </main>
   );
 }
