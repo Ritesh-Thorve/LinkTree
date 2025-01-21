@@ -7,6 +7,7 @@ export async function POST(request) {
   const db = client.db("linktree");
   const collection = db.collection("links");
   const result = await collection.insertOne(body);
+  console.log(body);
   return Response.json({
     status: 200,
     result: result,
