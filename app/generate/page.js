@@ -11,12 +11,12 @@ function page() {
         <div className="flex flex-col gap-2">
           <div>
             <input
-              className="p-2 px-4 w-[20vw] mb-3 rounded-md focus:outline-gray-600"
+              className="p-2 px-4 w-[36vw] mb-3 rounded-md focus:outline-gray-600"
               placeholder="Choose handle"
               type="text"
             />
           </div>
-          <div className="flex gap-2">
+          <div className="flex">
             <input
               className="p-2 px-4 mx-2 mb-3 rounded-md focus:outline-gray-600"
               placeholder="Enter link text"
@@ -31,16 +31,16 @@ function page() {
               Add Link
             </button>
           </div>
-        </div>
-        <div>
-          <input
-            className="p-2 w-[26vw] px-4 mb-3 rounded-md focus:outline-gray-600"
-            placeholder="Enter image url"
-            type="text"
-          />
-          <button className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 py-3">
-           Create Linktree
-          </button>
+          <div>
+            <input
+              className="p-2 w-[26vw] px-4 mb-3 rounded-md focus:outline-gray-600"
+              placeholder="Enter image url"
+              type="text"
+            />
+            <button className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 py-3">
+              Create Linktree
+            </button>
+          </div>
         </div>
       </div>
 
