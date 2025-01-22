@@ -1,12 +1,30 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 function page() {
   const [link, setlink] = useState("");
   const [linktext, setlinktext] = useState("");
   const [imgurl, setimgurl] = useState("");
   const [handle, sethandle] = useState("");
+
+  const addlink = async (link, linktext, handle) => {
+    const res = await fetch("http://localhost:3000/api/add", {
+      method: "POST",
+      body: JSON.stringify({
+        link: link,
+        linktext: linktext,
+        handle: handle,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    console.log(data);
+    toast.success(data.message);
+  };
 
   return (
     <div className="bg-purple-300 min-h-screen grid grid-cols-2">
@@ -31,6 +49,7 @@ function page() {
               type="text"
               onChange={(e) => setlinktext(e.target.value)}
               value={linktext}
+              required
             />
             <input
               className="p-2 px-4 mb-3 rounded-md focus:outline-gray-600"
@@ -39,7 +58,14 @@ function page() {
               onChange={(e) => setlink(e.target.value)}
               value={link}
             />
-            <button className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 mb-3 py-3">
+            <button
+              onClick={() => {
+                addlink(link, linktext, handle);
+                setlink("");
+                setlinktext("");
+              }}
+              className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 mb-3 py-3"
+            >
               Add Link
             </button>
           </div>
@@ -61,6 +87,7 @@ function page() {
       <div className="col2 flex justify-center absolute right-0 top-0 bottom-0">
         <Image alt="sideimage" src="/side-image.png" width={400} height={400} />
       </div>
+      <ToastContainer />
     </div>
   );
 }
