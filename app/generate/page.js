@@ -15,7 +15,11 @@ function page() {
     setlinks(list);
   };
 
-  const submitlink = async (link, linktext, handle) => {
+  const addLink = () => {
+    setlinks(links.concat({ link: "", linktext: "" }));
+  };
+
+  const submitLink = async (link, linktext, handle) => {
     const res = await fetch("http://localhost:3000/api/add", {
       method: "POST",
       body: JSON.stringify({
@@ -52,21 +56,30 @@ function page() {
             />
           </div>
           <div className="flex">
-            <input
-              className="p-2 px-4 mx-2 mb-3 rounded-md focus:outline-gray-600"
-              placeholder="Enter link text"
-              type="text"
-              onChange={(e) => setlinktext(e.target.value)}
-              value={linktext}
-            />
-            <input
-              className="p-2 px-4 mb-3 rounded-md focus:outline-gray-600"
-              placeholder="Enter link"
-              type="text"
-              onChange={(e) => setlink(e.target.value)}
-              value={link}
-            />
-            <button className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 mb-3 py-3">
+            {links.map((link, i) => {
+              return (
+                <div key={i}>
+                  <input
+                    className="p-2 px-4 mx-2 mb-3 rounded-md focus:outline-gray-600"
+                    placeholder="Enter link text"
+                    type="text"
+                    onChange={(e) => handleChange(e, i)}
+                    value={link.linktext}
+                  />
+                  <input
+                    className="p-2 px-4 mb-3 rounded-md focus:outline-gray-600"
+                    placeholder="Enter link"
+                    type="text"
+                    onChange={(e) => handleChange(e, index)}
+                    value={link.link}
+                  />
+                </div>
+              );
+            })}
+            <button
+              onClick={addLink}
+              className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 mb-3 py-3"
+            >
               Add Link
             </button>
           </div>
@@ -80,9 +93,8 @@ function page() {
             />
             <button
               onClick={() => {
-                submitlink(link, linktext, handle);
-                setlink("");
-                setlinktext("");
+                submitLink(link, linktext, handle);
+                setlinks([{}]);
               }}
               className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 py-3"
             >
