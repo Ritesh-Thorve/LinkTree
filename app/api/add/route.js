@@ -11,5 +11,6 @@ export async function POST(request) {
   return Response.json({
     status: 200,
     result: result,
+    message: "Link added successfully",
   });
 }

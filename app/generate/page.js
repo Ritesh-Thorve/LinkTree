@@ -1,7 +1,13 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 function page() {
+  const [link, setlink] = useState("");
+  const [linktext, setlinktext] = useState("");
+  const [imgurl, setimgurl] = useState("");
+  const [handle, sethandle] = useState("");
+
   return (
     <div className="bg-purple-300 min-h-screen grid grid-cols-2">
       <div className="col1 flex flex-col justify-center items-center">
@@ -14,6 +20,8 @@ function page() {
               className="p-2 px-4 w-[36vw] mb-3 rounded-md focus:outline-gray-600"
               placeholder="Choose handle"
               type="text"
+              onChange={(e) => sethandle(e.target.value)}
+              value={handle}
             />
           </div>
           <div className="flex">
@@ -21,11 +29,15 @@ function page() {
               className="p-2 px-4 mx-2 mb-3 rounded-md focus:outline-gray-600"
               placeholder="Enter link text"
               type="text"
+              onChange={(e) => setlinktext(e.target.value)}
+              value={linktext}
             />
             <input
               className="p-2 px-4 mb-3 rounded-md focus:outline-gray-600"
               placeholder="Enter link"
               type="text"
+              onChange={(e) => setlink(e.target.value)}
+              value={link}
             />
             <button className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 mb-3 py-3">
               Add Link
@@ -36,6 +48,8 @@ function page() {
               className="p-2 w-[26vw] px-4 mb-3 rounded-md focus:outline-gray-600"
               placeholder="Enter image url"
               type="text"
+              onChange={(e) => setimgurl(e.target.value)}
+              value={imgurl}
             />
             <button className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 py-3">
               Create Linktree
