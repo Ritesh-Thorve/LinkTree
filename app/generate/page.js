@@ -4,12 +4,18 @@ import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
 function page() {
-  const [link, setlink] = useState("");
-  const [linktext, setlinktext] = useState("");
+  const [links, setlinks] = useState([{ link: "", linktext: "" }]);
   const [imgurl, setimgurl] = useState("");
   const [handle, sethandle] = useState("");
 
-  const addlink = async (link, linktext, handle) => {
+  const handleChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...links];
+    list[index][name] = value;
+    setlinks(list);
+  };
+
+  const submitlink = async (link, linktext, handle) => {
     const res = await fetch("http://localhost:3000/api/add", {
       method: "POST",
       body: JSON.stringify({
@@ -23,6 +29,9 @@ function page() {
     });
     const data = await res.json();
     console.log(data);
+    if (!data.success) {
+      return toast.error(data.message);
+    }
     toast.success(data.message);
   };
 
@@ -49,7 +58,6 @@ function page() {
               type="text"
               onChange={(e) => setlinktext(e.target.value)}
               value={linktext}
-              required
             />
             <input
               className="p-2 px-4 mb-3 rounded-md focus:outline-gray-600"
@@ -58,14 +66,7 @@ function page() {
               onChange={(e) => setlink(e.target.value)}
               value={link}
             />
-            <button
-              onClick={() => {
-                addlink(link, linktext, handle);
-                setlink("");
-                setlinktext("");
-              }}
-              className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 mb-3 py-3"
-            >
+            <button className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 mb-3 py-3">
               Add Link
             </button>
           </div>
@@ -77,7 +78,14 @@ function page() {
               onChange={(e) => setimgurl(e.target.value)}
               value={imgurl}
             />
-            <button className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 py-3">
+            <button
+              onClick={() => {
+                submitlink(link, linktext, handle);
+                setlink("");
+                setlinktext("");
+              }}
+              className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 py-3"
+            >
               Create Linktree
             </button>
           </div>

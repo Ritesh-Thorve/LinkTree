@@ -6,11 +6,20 @@ export async function POST(request) {
   const client = await clientPromise;
   const db = client.db("linktree");
   const collection = db.collection("links");
-  const result = await collection.insertOne(body);
-  console.log(body);
+
+  const doc = await collection.findOne({ handle: body.handle });
+  if (doc) {
+    return Response.json({
+      success: false,
+      status: 400,
+      message: "Handle already exists",
+    });
+  }
+
+  await collection.insertOne(body);
   return Response.json({
+    success: true,
     status: 200,
-    result: result,
-    message: "Link added successfully",
+    message: "Linktree created successfully",
   });
 }
