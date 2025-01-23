@@ -8,18 +8,19 @@ function page() {
   const [imgurl, setimgurl] = useState("");
   const [handle, sethandle] = useState("");
 
-  const handleChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...links];
-    list[index][name] = value;
-    setlinks(list);
+  const handleChange = (index, link, linktext) => {
+    setlinks((initiallinks) => {
+      return initiallinks.map((item, i) =>
+        index == i ? { link, linktext } : item
+      );
+    });
   };
 
   const addLink = () => {
     setlinks(links.concat({ link: "", linktext: "" }));
   };
 
-  const submitLink = async (link, linktext, handle) => {
+  const submitLink = async (links, handle) => {
     const res = await fetch("http://localhost:3000/api/add", {
       method: "POST",
       body: JSON.stringify({
@@ -42,50 +43,55 @@ function page() {
   return (
     <div className="bg-purple-300 min-h-screen grid grid-cols-2">
       <div className="col1 flex flex-col justify-center items-center">
-        <h1 className="font-bold my-8 text-3xl text-gray-900">
+        <h1 className="font-bold my-8 text-2xl text-gray-900">
           Create your Linktree
         </h1>
         <div className="flex flex-col gap-2">
           <div>
             <input
-              className="p-2 px-4 w-[36vw] mb-3 rounded-md focus:outline-gray-600"
-              placeholder="Choose handle"
+              className="p-2 text-sm px-4 w-full mb-3 rounded-md focus:outline-gray-600"
+              placeholder="Enter handle name"
               type="text"
               onChange={(e) => sethandle(e.target.value)}
               value={handle}
             />
           </div>
-          <div className="flex">
-            {links.map((link, i) => {
-              return (
-                <div key={i}>
-                  <input
-                    className="p-2 px-4 mx-2 mb-3 rounded-md focus:outline-gray-600"
-                    placeholder="Enter link text"
-                    type="text"
-                    onChange={(e) => handleChange(e, i)}
-                    value={link.linktext}
-                  />
-                  <input
-                    className="p-2 px-4 mb-3 rounded-md focus:outline-gray-600"
-                    placeholder="Enter link"
-                    type="text"
-                    onChange={(e) => handleChange(e, index)}
-                    value={link.link}
-                  />
-                </div>
-              );
-            })}
+          <div>
+            {links &&
+              links.map((link, i) => {
+                return (
+                  <div key={i}>
+                    <input
+                      className="p-2 text-sm px-4 mr-4 rounded-md focus:outline-gray-600"
+                      placeholder="Enter link text"
+                      type="text"
+                      onChange={(e) =>
+                        handleChange(i, link.linktext, e.target.value)
+                      }
+                      value={link.linktext}
+                    />
+                    <input
+                      className="p-2 text-sm px-4 mb-3 rounded-md focus:outline-gray-600"
+                      placeholder="Enter link"
+                      type="text"
+                      onChange={(e) =>
+                        handleChange(i, e.target.value, link.link)
+                      }
+                      value={link.link}
+                    />
+                  </div>
+                );
+              })}
             <button
               onClick={addLink}
-              className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 mb-3 py-3"
+              className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-xs px-5 mb-2 py-3"
             >
-              Add Link
+              + Add Link
             </button>
           </div>
-          <div>
+          <div className="flex flex-col">
             <input
-              className="p-2 w-[26vw] px-4 mb-3 rounded-md focus:outline-gray-600"
+              className="p-2 text-sm w-full px-4 mb-3 rounded-md focus:outline-gray-600"
               placeholder="Enter image url"
               type="text"
               onChange={(e) => setimgurl(e.target.value)}
@@ -93,10 +99,10 @@ function page() {
             />
             <button
               onClick={() => {
-                submitLink(link, linktext, handle);
+                submitLink(links, handle);
                 setlinks([{}]);
               }}
-              className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-sm ml-2 px-5 py-3"
+              className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-xs px-5 py-3"
             >
               Create Linktree
             </button>
