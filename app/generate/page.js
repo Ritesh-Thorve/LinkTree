@@ -12,6 +12,7 @@ function page() {
   const [links, setlinks] = useState([{ link: "", linktext: "" }]);
   const [imgurl, setimgurl] = useState("");
   const [handle, sethandle] = useState(searchval);
+  const [desc, setdesc] = useState("");
 
   const handleChange = (index, link, linktext) => {
     setlinks((initiallinks) => {
@@ -29,13 +30,14 @@ function page() {
     setlinks(links.concat({ link: "", linktext: "" }));
   };
 
-  const submitLink = async (links, handle, imgurl) => {
+  const submitLink = async (links, handle, imgurl, desc) => {
     const res = await fetch("http://localhost:3000/api/add", {
       method: "POST",
       body: JSON.stringify({
         links: links,
         imgurl: imgurl,
         handle: handle,
+        desc: desc,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -52,10 +54,10 @@ function page() {
   return (
     <div className="bg-purple-300 min-h-screen grid grid-cols-2">
       <div className="col1 flex flex-col justify-center items-center">
-        <h1 className="font-bold my-8 text-2xl text-gray-900">
+        <h1 className="font-bold my-5 text-2xl text-gray-900">
           Create your Linktree
         </h1>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col">
           <div>
             <input
               className="p-2 text-sm px-4 w-full mb-3 rounded-md focus:outline-gray-600"
@@ -107,13 +109,22 @@ function page() {
               onChange={(e) => setimgurl(e.target.value)}
               value={imgurl}
             />
+            <input
+              className="p-2 text-sm w-full px-4 mb-3 rounded-md focus:outline-gray-600"
+              placeholder="Enter description"
+              type="text"
+              onChange={(e) => setdesc(e.target.value)}
+              value={desc}
+            />
             <button
               onClick={() => {
-                submitLink(links, handle, imgurl);
+                submitLink(links, handle, imgurl, desc);
                 setlinks([{}]);
                 sethandle("");
+                setdesc("");
               }}
-              className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-xs px-5 py-3"
+              disabled={imgurl == ""}
+              className="bg-gray-950 hover:cursor-pointer text-white hover:bg-gray-800 font-medium rounded-full text-xs px-5 py-3"
             >
               Create Linktree
             </button>
