@@ -1,7 +1,16 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 function page() {
+  const router = useRouter();
+  const [url, seturl] = useState("");
+
+  const handleClick = () => {
+    router.push(`/generate?handle=${url}`);
+  };
+
   return (
     <main>
       <section className="bg-[#254f1a] min-h-[100vh] grid grid-cols-2">
@@ -15,8 +24,22 @@ function page() {
             Instagram, TikTok, Twitter, YouTube and other social media profiles.
           </p>
           <div className="flex gap-2 py-6">
-            <input className="p-3 text-sm rounded-lg focus:outline-green-[#254f1a]" type="text" placeholder="linktr.ee/your-url" />
-            <button className="bg-[#e9c0e9] px-5 py-3 text-sm font-semibold rounded-full">Claim your Linktree</button>
+            <span className="p-3 text-sm rounded-s-lg bg-slate-50 -mr-4">
+              linktr.ee/
+            </span>
+            <input
+              className="p-3 text-sm rounded-lg focus:outline-green-[#254f1a]"
+              type="text"
+              placeholder="your-url"
+              value={url}
+              onChange={(e) => seturl(e.target.value)}
+            />
+            <button
+              onClick={handleClick}
+              className="bg-[#e9c0e9] px-5 py-3 text-sm font-semibold rounded-full"
+            >
+              Claim your Linktree
+            </button>
           </div>
         </div>
         <div className="flex justify-center items-end">

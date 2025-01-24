@@ -1,19 +1,26 @@
 "use client";
 import { Plus } from "lucide-react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
 function page() {
+  const search = useSearchParams();
+  const searchval = search.get("handle");
   const [links, setlinks] = useState([{ link: "", linktext: "" }]);
   const [imgurl, setimgurl] = useState("");
-  const [handle, sethandle] = useState("");
+  const [handle, sethandle] = useState(searchval);
 
   const handleChange = (index, link, linktext) => {
     setlinks((initiallinks) => {
-      return initiallinks.map((item, i) =>
-        index == i ? { link, linktext } : item
-      );
+      return initiallinks.map((item, i) => {
+        if (index == i) {
+          return { link, linktext };
+        } else {
+          return item;
+        }
+      });
     });
   };
 
@@ -21,12 +28,12 @@ function page() {
     setlinks(links.concat({ link: "", linktext: "" }));
   };
 
-  const submitLink = async (links, handle) => {
+  const submitLink = async (links, handle, imgurl) => {
     const res = await fetch("http://localhost:3000/api/add", {
       method: "POST",
       body: JSON.stringify({
-        link: link,
-        linktext: linktext,
+        links: links,
+        imgurl: imgurl,
         handle: handle,
       }),
       headers: {
@@ -67,7 +74,7 @@ function page() {
                       placeholder="Enter link text"
                       type="text"
                       onChange={(e) =>
-                        handleChange(i, link.linktext, e.target.value)
+                        handleChange(i, link.link, e.target.value)
                       }
                       value={link.linktext}
                     />
@@ -76,7 +83,7 @@ function page() {
                       placeholder="Enter link"
                       type="text"
                       onChange={(e) =>
-                        handleChange(i, e.target.value, link.link)
+                        handleChange(i, e.target.value, link.linktext)
                       }
                       value={link.link}
                     />
@@ -101,7 +108,7 @@ function page() {
             />
             <button
               onClick={() => {
-                submitLink(links, handle);
+                submitLink(links, handle, imgurl);
                 setlinks([{}]);
               }}
               className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-xs px-5 py-3"
