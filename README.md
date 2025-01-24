@@ -26,7 +26,7 @@ This is a LinkTree clone built using Next.js. It allows users to create a person
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/link-tree-clone.git
+   git clone https://github.com/ManoharBari/Link-Tree-Clone.git
    ```
 2. Navigate to the project directory:
    ```bash
