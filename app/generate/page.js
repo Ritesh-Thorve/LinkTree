@@ -1,4 +1,5 @@
 "use client";
+import { Plus } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
@@ -84,9 +85,10 @@ function page() {
               })}
             <button
               onClick={addLink}
-              className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-xs px-5 mb-2 py-3"
+              className="bg-gray-950 flex text-white hover:bg-gray-800 font-medium rounded-full text-xs px-4 mb-2 py-3"
             >
-              + Add Link
+              <Plus className="mr-1" size={16} />
+              Add Link
             </button>
           </div>
           <div className="flex flex-col">
