@@ -41,7 +41,6 @@ function page() {
       },
     });
     const data = await res.json();
-    console.log(data);
     if (!data.success) {
       return toast.error(data.message);
     }
