@@ -1,12 +1,13 @@
 "use client";
 import { Plus } from "lucide-react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
 function page() {
   const search = useSearchParams();
+  const router = useRouter();
   const searchval = search.get("handle");
   const [links, setlinks] = useState([{ link: "", linktext: "" }]);
   const [imgurl, setimgurl] = useState("");
@@ -45,6 +46,7 @@ function page() {
       return toast.error(data.message);
     }
     toast.success(data.message);
+    router.push(`/${handle}`);
   };
 
   return (
@@ -109,6 +111,7 @@ function page() {
               onClick={() => {
                 submitLink(links, handle, imgurl);
                 setlinks([{}]);
+                sethandle("");
               }}
               className="bg-gray-950 text-white hover:bg-gray-800 font-medium rounded-full text-xs px-5 py-3"
             >
