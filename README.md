@@ -4,7 +4,6 @@ This is a LinkTree clone built using Next.js. It allows users to create a person
 
 ## Features
 
-- User authentication
 - Customizable link page
 - Responsive design
 - Easy to deploy

@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Link in bio tool: Everything you are, in one simple link | Linktree",
-  description: "Linktree is a simple tool that contains information about the user",
+  description:
+    "Linktree is a simple tool that contains information about the user",
 };
 
 export default function RootLayout({ children }) {
@@ -31,8 +33,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        {children}
+        <Suspense>
+          <Navbar />
+          {children}
+        </Suspense>
       </body>
     </html>
   );

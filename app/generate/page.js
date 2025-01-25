@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
+export const dynamic = "force-dynamic";
 function page() {
   const search = useSearchParams();
   const router = useRouter();
