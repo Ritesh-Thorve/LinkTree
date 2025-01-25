@@ -32,7 +32,7 @@ function page() {
   };
 
   const submitLink = async (links, handle, imgurl, desc) => {
-    const res = await fetch("http://localhost:3000/api/add", {
+    const res = await fetch("/api/add", {
       method: "POST",
       body: JSON.stringify({
         links: links,
