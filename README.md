@@ -29,7 +29,7 @@ This is a LinkTree clone built using Next.js. It allows users to create a person
    ```
 2. Navigate to the project directory:
    ```bash
-   cd link-tree-clone
+   cd Link-Tree-Clone
    ```
 3. Install dependencies:
    ```bash
