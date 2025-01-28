@@ -12,7 +12,7 @@ function page() {
   const searchval = search.get("handle");
   const [links, setlinks] = useState([{ link: "", linktext: "" }]);
   const [imgurl, setimgurl] = useState("");
-  const [handle, sethandle] = useState(searchval);
+  const [handle, sethandle] = useState(searchval || "");
   const [desc, setdesc] = useState("");
 
   const handleChange = (index, link, linktext) => {
@@ -120,9 +120,10 @@ function page() {
             <button
               onClick={() => {
                 submitLink(links, handle, imgurl, desc);
-                setlinks([{}]);
+                setlinks([{ link: "", linktext: "" }]);
                 sethandle("");
                 setdesc("");
+                setimgurl("");
               }}
               disabled={imgurl == ""}
               className="bg-gray-950 hover:cursor-pointer text-white hover:bg-gray-800 font-medium rounded-full text-xs px-5 py-3"
