@@ -33,10 +33,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Suspense>
-          <Navbar />
-          {children}
-        </Suspense>
+        <Navbar />
+        <Suspense>{children}</Suspense>
       </body>
     </html>
   );
