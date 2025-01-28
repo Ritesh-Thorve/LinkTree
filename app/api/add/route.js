@@ -1,5 +1,4 @@
-import clientPromise from "@/lib/mongodb";
-import { headers } from "next/headers";
+import { clientPromise } from "@/lib/mongodb";
 
 export async function POST(request) {
   const body = await request.json();
@@ -10,31 +9,17 @@ export async function POST(request) {
 
   const doc = await collection.findOne({ handle: body.handle });
   if (doc) {
-    return new Response(
-      JSON.stringify({
-        success: true,
-        status: 200,
-        message: "Handle already exists",
-      }),
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    );
+    return Response.json({
+      success: false,
+      status: 200,
+      message: "Handle already exists",
+    });
   }
 
   await collection.insertOne(body);
-  return new Response(
-    JSON.stringify({
-      success: true,
-      status: 200,
-      message: "Linktree created successfully",
-    }),
-    {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    }
-  );
+  return Response.json({
+    success: true,
+    status: 200,
+    message: "Linktree created successfully",
+  });
 }
