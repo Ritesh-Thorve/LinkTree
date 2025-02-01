@@ -57,7 +57,7 @@ function page() {
       <div className="mt-48">
         <div className="col1 flex flex-col justify-center items-center">
           <h1 className="font-bold my-5 text-3xl text-gray-900">
-            Create your Linktree
+            Create Your Linktree
           </h1>
           <div className="flex flex-col">
             <div>

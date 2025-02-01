@@ -30,7 +30,7 @@ function page() {
             <input
               className="p-3 text-sm rounded-lg focus:outline-green-[#254f1a]"
               type="text"
-              placeholder="your-url"
+              placeholder="Enter Your Handle Name"
               value={url}
               onChange={(e) => seturl(e.target.value)}
             />
