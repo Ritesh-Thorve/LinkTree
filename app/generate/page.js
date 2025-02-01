@@ -1,6 +1,5 @@
 "use client";
-import { Plus } from "lucide-react";
-import Image from "next/image";
+import { Plus } from "lucide-react"; 
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
